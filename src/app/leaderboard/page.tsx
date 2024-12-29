@@ -79,7 +79,7 @@ export default function Leaderboard() {
     distance: number;
     time: number;
   } | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const supabase = createClient();
   const monthlyDistanceGoal = 100;
@@ -234,7 +234,7 @@ export default function Leaderboard() {
   }, [userId, supabase]);
 
   useEffect(() => {
-    if (userId && hasStravaToken) {
+    if (userId && hasStravaToken === true) {
       setLoading(true);
       Promise.all([
         fetchLeaderboardData(),
@@ -242,7 +242,7 @@ export default function Leaderboard() {
       ]).finally(() => {
         setLoading(false);
       });
-    }
+    } 
   }, [userId, hasStravaToken]);
 
   function formatTime(seconds: number): string {
