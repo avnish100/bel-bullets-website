@@ -108,7 +108,15 @@ export function IntroSlideshow({ onComplete }: IntroSlideshowProps) {
 
   return (
     <motion.div 
-      className="fixed inset-0 bg-black z-50 flex items-center justify-center"
+    style={{
+        position: 'fixed',   
+        inset: 0,            
+        backgroundColor: 'black', 
+        zIndex: 50,          
+        display: 'flex',     
+        alignItems: 'center', 
+        justifyContent: 'center'
+      }}
       initial="initial"
       animate="animate"
       exit="exit"
@@ -121,7 +129,7 @@ export function IntroSlideshow({ onComplete }: IntroSlideshowProps) {
             initial={{ opacity: 1 }}
             exit={currentSlide === slides.length - 1 ? { opacity: 0 } : { opacity: 1 }}
             transition={{ duration: 1 }}
-            className="absolute inset-0"
+            style={{ position: 'absolute', inset: 0 }}
           >
             <Image
               src={slides[currentSlide].src}

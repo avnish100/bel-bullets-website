@@ -19,7 +19,7 @@ export default function Home() {
   const targetRef = useRef<HTMLDivElement>(null)
   const [showSlideshow, setShowSlideshow] = useState(true)
   const { scrollYProgress } = useScroll({
-    target: targetRef,
+    target: targetRef.current ? targetRef as React.RefObject<HTMLElement> : undefined,
     offset: ["start end", "end start"]
   })
 
@@ -73,8 +73,7 @@ export default function Home() {
         </main>
         <div ref={targetRef} className="py-16 overflow-hidden">
       <motion.div 
-        className="flex items-center"
-        style={{ x }}
+        style={{ x, display: 'flex', alignItems: 'center' }}
       >
         <div className="flex">
           <div className={`text-9xl content-center ${merriweather.className}`}>

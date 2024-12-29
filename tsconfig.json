@@ -27,7 +27,8 @@
         "./src/*"
       ]
     },
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "typeRoots": ["./node_modules/@types"] 
   },
   "include": [
     "next-env.d.ts",

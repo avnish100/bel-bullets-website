@@ -399,12 +399,12 @@ if (!hasStravaToken) {
           <CardContent>
             <div className="space-y-4">
             
-              <CircularProgress progress={(userStats?.distance / monthlyDistanceGoal) * 100} size={200}/>
+              <CircularProgress progress={((userStats?.distance ?? 1) / monthlyDistanceGoal) * 100} size={200}/>
               <p className="text-center text-xl font-semibold">
                 {userStats?.distance.toFixed(0)} / {monthlyDistanceGoal} km
               </p>
               <p className="text-center text-muted-foreground">
-                {((userStats?.distance) / monthlyDistanceGoal * 100).toFixed(0)}% completed keep pushing !
+                {((userStats?.distance ?? 1) / monthlyDistanceGoal * 100).toFixed(0)}% completed keep pushing !
               </p>
             </div>
           </CardContent>
