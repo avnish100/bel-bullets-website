@@ -6,14 +6,13 @@ import { InfoSections } from '@/components/info-sections'
 import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis';
 import Image from 'next/image'
-
 import { Merriweather } from 'next/font/google'
 import { IntroSlideshow } from '@/components/intro-slideshow'
 
 const merriweather = Merriweather({
   style: 'normal',
   weight: '400',
-  subsets: 'latin'
+  subsets: ["latin"]
 })
 
 export default function Home() {
