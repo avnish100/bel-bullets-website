@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
-import { UserIcon } from "@heroicons/react/24/outline"
 
 const upcomingRuns = [
   {
@@ -69,7 +68,6 @@ export function InfoSections() {
       <section className="py-20 border-t border-white/10">
         <div className="container mx-auto px-4 text-center">
           <div className="inline-block rounded-full overflow-hidden mb-6">
-          <UserIcon className="h-6 w-6 text-gray-600" />
           </div>
           <h2 className="text-4xl font-bold mb-6">
             Running with 6504 and counting.
