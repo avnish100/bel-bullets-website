@@ -1,101 +1,178 @@
-import Image from "next/image";
+'use client'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
+import { InfoSections } from '@/components/info-sections'
+import { useEffect, useRef, useState } from 'react'
+import Lenis from 'lenis';
+import Image from 'next/image'
+
+import { Merriweather } from 'next/font/google'
+import { IntroSlideshow } from '@/components/intro-slideshow'
+
+const merriweather = Merriweather({
+  style: 'normal',
+  weight: '400'
+})
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const targetRef = useRef<HTMLDivElement>(null)
+  const [showSlideshow, setShowSlideshow] = useState(true)
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start end", "end start"]
+  })
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect( () => {
+
+    const lenis = new Lenis()
+
+
+
+    function raf(time) {
+
+      lenis.raf(time)
+
+      requestAnimationFrame(raf)
+
+    }
+
+
+
+    requestAnimationFrame(raf)
+
+  }, [])
+  const x = useTransform(scrollYProgress, [0, 1], ["-50%", "-100%"])
+  return (
+    <>
+    <AnimatePresence>
+        {showSlideshow && (
+          <IntroSlideshow onComplete={() => setShowSlideshow(false)} />
+        )}
+      </AnimatePresence>
+      <main className="relative min-h-screen flex items-center justify-center">
+        {/* Background image with overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url('/placeholder.svg?height=1080&width=1920')",
+          }}
+        >
+          <div className="absolute inset-0 bg-black/60" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        
+        {/* Content */}
+        <div className="relative z-10 text-center space-y-6">
+          <h1 className={`text-6xl md:text-8xl font-bold text-white tracking-tight ${merriweather.className}`}>
+            BEL BULLETS
+          </h1>
+          <p className="text-xl md:text-2xl text-white/80">
+            Run Club
+          </p>
+        </div>
+        </main>
+        <div ref={targetRef} className="py-16 overflow-hidden">
+      <motion.div 
+        className="flex items-center"
+        style={{ x }}
+      >
+        <div className="flex">
+          <div className={`text-9xl content-center ${merriweather.className}`}>
+            BEL
+          </div>
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={300}
+            height={300}
+            className="object-contain"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+          <div className={`text-9xl content-center ${merriweather.className}`}>BULLETS</div>
           <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={300}
+            height={300}
+            className="object-contain"
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+          <div className={`text-9xl content-center ${merriweather.className}`}>
+            BEL
+          </div>
           <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={300}
+            height={300}
+            className="object-contain"
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <div className={`text-9xl content-center ${merriweather.className}`}>BULLETS</div>
+          <Image
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={300}
+            height={300}
+            className="object-contain"
+          />
+          <div className={`text-9xl content-center ${merriweather.className}`}>
+            BEL
+          </div>
+          <Image
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={300}
+            height={300}
+            className="object-contain"
+          />
+          <div className={`text-9xl content-center ${merriweather.className}`}>BULLETS</div>
+          <Image
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={300}
+            height={300}
+            className="object-contain"
+          />
+          <div className={`text-9xl content-center ${merriweather.className}`}>
+            BEL
+          </div>
+          <Image
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={300}
+            height={300}
+            className="object-contain"
+          />
+          <div className={`text-9xl content-center ${merriweather.className}`}>BULLETS</div>
+          <Image
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={300}
+            height={300}
+            className="object-contain"
+          />
+          <div className={`text-9xl content-center ${merriweather.className}`}>
+            BEL
+          </div>
+          <Image
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={300}
+            height={300}
+            className="object-contain"
+          />
+          <div className={`text-9xl content-center ${merriweather.className}`}>BULLETS</div>
+          <Image
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={300}
+            height={300}
+            className="object-contain"
+          />
+        </div>
+      </motion.div>
     </div>
-  );
+      <InfoSections />
+      
+    </>
+  )
 }
+
