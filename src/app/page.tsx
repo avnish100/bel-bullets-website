@@ -12,7 +12,8 @@ import { IntroSlideshow } from '@/components/intro-slideshow'
 
 const merriweather = Merriweather({
   style: 'normal',
-  weight: '400'
+  weight: '400',
+  subsets: 'latin'
 })
 
 export default function Home() {
