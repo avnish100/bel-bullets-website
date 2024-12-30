@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
       .not('strava_refresh_token', 'is', null)
       .or(
         `last_sync_time.is.null,` +
-        `last_sync_time.lt.${new Date(Date.now() - 15 * 60 * 1000).toISOString()}`+
+        `last_sync_time.lt.${new Date(Date.now() - 15 * 60 * 1000).toISOString()},`+
         `last_sync_status.eq.failed`
       )
       .order('last_sync_time', { ascending: true, nullsFirst: true })
