@@ -18,17 +18,28 @@ const merriweather = Merriweather({
 
 
 const supabase = createClient()
+const AUTH_TIMEOUT_MS = 5000
 
 export function Header() {
   const [userId, setUserId] = useState<string | null | undefined>(undefined)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
 
   const checkSession = async () => {
     try {
       setIsLoading(true)
-      const { data: { session }, error } = await supabase.auth.getSession()
+      
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Auth check timed out')), AUTH_TIMEOUT_MS)
+      })
+
+      const sessionPromise = supabase.auth.getSession()
+
+      const { data: { session }, error } = await Promise.race([
+        sessionPromise,
+        timeoutPromise
+      ]) as { data: { session: any }, error: any }
       
       if (error) {
         console.error('Error fetching session:', error)
@@ -38,12 +49,12 @@ export function Header() {
       setUserId(session?.user?.id ?? null)
     } catch (error) {
       console.error('Unexpected error:', error)
+      setUserId(null) // Reset to not logged in state on timeout/error
     } finally {
       setIsLoading(false)
     }
   }
 
-  // Check session when component mounts and pathname changes
   useEffect(() => {
     checkSession()
   }, [pathname])
@@ -95,8 +106,8 @@ export function Header() {
   }
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-black/50 backdrop-blur-md">
-      <div className="container mx-auto px-4 py-4 mt-[-30] mb-[-30]">
+    <header className="fixed top-0 w-full z-50 bg-black/50 backdrop-blur-md mb-10">
+      <div className="container mx-auto px-4 py-4 -mt-7 -mb-7">
         <nav className="flex items-center justify-between">
           {/* Logo Section */}
           <Link href="/" className="text-2xl font-bold text-white flex items-center">
