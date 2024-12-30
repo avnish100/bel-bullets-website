@@ -15,6 +15,33 @@ const merriweather = Merriweather({
   subsets: ["latin"]
 })
 
+function ScrollingContent() {
+  return (
+    <div className="flex flex-nowrap items-center gap-8">
+      {Array.from({ length: 8 }).map((_, index) => (
+        <div key={index} className="flex items-center gap-4 flex-shrink-0">
+          <div className={`text-4xl md:text-6xl lg:text-9xl ${merriweather.className}`}>BEL</div>
+          <Image
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={150}
+            height={150}
+            className="object-contain md:w-48 md:h-48 lg:w-72 lg:h-72"
+          />
+          <div className={`text-4xl md:text-6xl lg:text-9xl ${merriweather.className}`}>BULLETS</div>
+          <Image
+            src="/bel-bullets-logo.png"
+            alt="Scrolling icons"
+            width={150}
+            height={150}
+            className="object-contain md:w-48 md:h-48 lg:w-72 lg:h-72"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Home() {
   const targetRef = useRef<HTMLDivElement>(null)
   const [showSlideshow, setShowSlideshow] = useState(true)
@@ -72,103 +99,10 @@ export default function Home() {
         </div>
         </main>
         <div ref={targetRef} className="py-16 overflow-hidden">
-      <motion.div 
-        style={{ x, display: 'flex', alignItems: 'center' }}
-      >
-        <div className="flex">
-          <div className={`text-9xl content-center ${merriweather.className}`}>
-            BEL
-          </div>
-          <Image
-            src="/bel-bullets-logo.png"
-            alt="Scrolling icons"
-            width={300}
-            height={300}
-            className="object-contain"
-          />
-          <div className={`text-9xl content-center ${merriweather.className}`}>BULLETS</div>
-          <Image
-            src="/bel-bullets-logo.png"
-            alt="Scrolling icons"
-            width={300}
-            height={300}
-            className="object-contain"
-          />
-          <div className={`text-9xl content-center ${merriweather.className}`}>
-            BEL
-          </div>
-          <Image
-            src="/bel-bullets-logo.png"
-            alt="Scrolling icons"
-            width={300}
-            height={300}
-            className="object-contain"
-          />
-          <div className={`text-9xl content-center ${merriweather.className}`}>BULLETS</div>
-          <Image
-            src="/bel-bullets-logo.png"
-            alt="Scrolling icons"
-            width={300}
-            height={300}
-            className="object-contain"
-          />
-          <div className={`text-9xl content-center ${merriweather.className}`}>
-            BEL
-          </div>
-          <Image
-            src="/bel-bullets-logo.png"
-            alt="Scrolling icons"
-            width={300}
-            height={300}
-            className="object-contain"
-          />
-          <div className={`text-9xl content-center ${merriweather.className}`}>BULLETS</div>
-          <Image
-            src="/bel-bullets-logo.png"
-            alt="Scrolling icons"
-            width={300}
-            height={300}
-            className="object-contain"
-          />
-          <div className={`text-9xl content-center ${merriweather.className}`}>
-            BEL
-          </div>
-          <Image
-            src="/bel-bullets-logo.png"
-            alt="Scrolling icons"
-            width={300}
-            height={300}
-            className="object-contain"
-          />
-          <div className={`text-9xl content-center ${merriweather.className}`}>BULLETS</div>
-          <Image
-            src="/bel-bullets-logo.png"
-            alt="Scrolling icons"
-            width={300}
-            height={300}
-            className="object-contain"
-          />
-          <div className={`text-9xl content-center ${merriweather.className}`}>
-            BEL
-          </div>
-          <Image
-            src="/bel-bullets-logo.png"
-            alt="Scrolling icons"
-            width={300}
-            height={300}
-            className="object-contain"
-          />
-          <div className={`text-9xl content-center ${merriweather.className}`}>BULLETS</div>
-          <Image
-            src="/bel-bullets-logo.png"
-            alt="Scrolling icons"
-            width={300}
-            height={300}
-            className="object-contain"
-          />
-        </div>
-      </motion.div>
-    </div>
+        <motion.div style={{ x }}>
+          <ScrollingContent />
+        </motion.div>
+      </div>
       <InfoSections />
       
     </>

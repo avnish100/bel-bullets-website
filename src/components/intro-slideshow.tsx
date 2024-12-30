@@ -87,72 +87,104 @@ const slides = [
 ]
 
 interface IntroSlideshowProps {
-  onComplete: () => void
-}
-
-export function IntroSlideshow({ onComplete }: IntroSlideshowProps) {
-  const [currentSlide, setCurrentSlide] = useState(0)
+    onComplete: () => void
+  }
   
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (currentSlide < slides.length - 1) {
-        setCurrentSlide(prev => prev + 1)
-      } else {
-        clearInterval(interval)
-        setTimeout(onComplete, 1000)
+  export function IntroSlideshow({ onComplete }: IntroSlideshowProps) {
+    const [currentSlide, setCurrentSlide] = useState(0)
+    const [isMobile, setIsMobile] = useState(false)
+  
+    // Check for mobile viewport on mount and resize
+    useEffect(() => {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768)
       }
-    }, 300)
-
-    return () => clearInterval(interval)
-  }, [currentSlide, onComplete])
-
-  return (
-    <motion.div 
-    style={{
-        position: 'fixed',   
-        inset: 0,            
-        backgroundColor: 'black', 
-        zIndex: 50,          
-        display: 'flex',     
-        alignItems: 'center', 
-        justifyContent: 'center'
-      }}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={overlayAnimation}
-    >
-      <div className="relative h-1/2 w-1/2">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 1 }}
-            exit={currentSlide === slides.length - 1 ? { opacity: 0 } : { opacity: 1 }}
-            transition={{ duration: 1 }}
-            style={{ position: 'absolute', inset: 0 }}
-          >
-            <Image
-              src={slides[currentSlide].src}
-              alt={slides[currentSlide].alt}
-              fill
-              className="object-cover"
-              priority
-            />  
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h2 className={`text-white text-8xl font-bold text-center drop-shadow-xl ${merriweather.className}`}>
-                {slides[currentSlide].text}
-              </h2>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full pr-4">
-          <p className="text-white text-xl font-mono">{slides[currentSlide].coordinates.lat}</p>
+      
+      checkMobile()
+      window.addEventListener('resize', checkMobile)
+      
+      return () => window.removeEventListener('resize', checkMobile)
+    }, [])
+    
+    useEffect(() => {
+      const interval = setInterval(() => {
+        if (currentSlide < slides.length - 1) {
+          setCurrentSlide(prev => prev + 1)
+        } else {
+          clearInterval(interval)
+          setTimeout(onComplete, 1000)
+        }
+      }, 300)
+  
+      return () => clearInterval(interval)
+    }, [currentSlide, onComplete])
+  
+    return (
+      <motion.div 
+        className="fixed inset-0 bg-black z-50 flex items-center justify-center"
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={overlayAnimation}
+      >
+        <div className="relative w-full h-full md:h-1/2 md:w-1/2 p-4 md:p-0">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 1 }}
+              exit={currentSlide === slides.length - 1 ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="absolute inset-0"
+            >
+              <div className="relative w-full h-full">
+                <Image
+                  src={slides[currentSlide].src}
+                  alt={slides[currentSlide].alt}
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <h2 
+                    className={`
+                      text-white font-bold text-center drop-shadow-xl
+                      text-4xl sm:text-5xl md:text-6xl lg:text-8xl
+                      px-4 md:px-0
+                      ${merriweather.className}
+                    `}
+                  >
+                    {slides[currentSlide].text}
+                  </h2>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+  
+          {/* Coordinates - Hidden on mobile, shown on larger screens */}
+          <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full pr-4">
+            <p className="text-white text-base md:text-xl font-mono">
+              {slides[currentSlide].coordinates.lat}
+            </p>
+          </div>
+          <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-full pl-4">
+            <p className="text-white text-base md:text-xl font-mono">
+              {slides[currentSlide].coordinates.lon}
+            </p>
+          </div>
+  
+          {/* Mobile coordinates positioning */}
+          <div className="md:hidden absolute bottom-4 left-4">
+            <p className="text-white text-sm font-mono">
+              {slides[currentSlide].coordinates.lat}
+            </p>
+          </div>
+          <div className="md:hidden absolute bottom-4 right-4">
+            <p className="text-white text-sm font-mono">
+              {slides[currentSlide].coordinates.lon}
+            </p>
+          </div>
         </div>
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full pl-4">
-          <p className="text-white text-xl font-mono">{slides[currentSlide].coordinates.lon}</p>
-        </div>
-      </div>
-    </motion.div>
-  )
-}
-
+      </motion.div>
+    )
+  }

@@ -37,18 +37,31 @@ export default function Events() {
   ]
 
   return (
-    <div className="max-w-4xl mx-auto mt-20">
-      <h1 className="text-3xl font-bold mb-6">Upcoming Events</h1>
-      <div className="grid gap-6">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 mt-16 sm:mt-20 mb-8">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 tracking-tight">
+        Upcoming Events
+      </h1>
+      
+      <div className="grid gap-4 sm:gap-6">
         {events.map((event) => (
-          <Card key={event.id}>
-            <CardHeader>
-              <CardTitle>{event.name}</CardTitle>
+          <Card key={event.id} className="shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="pb-2 sm:pb-4">
+              <CardTitle className="text-xl sm:text-2xl leading-tight">
+                {event.name}
+              </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-2">{event.date} at {event.time}</p>
-              <p className="text-muted-foreground mb-2">{event.location}</p>
-              <p>{event.description}</p>
+            <CardContent className="space-y-2 sm:space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                <p className="text-sm sm:text-base text-muted-foreground">
+                  <span className="font-medium">When:</span> {event.date} at {event.time}
+                </p>
+                <p className="text-sm sm:text-base text-muted-foreground">
+                  <span className="font-medium">Where:</span> {event.location}
+                </p>
+              </div>
+              <p className="text-base sm:text-lg leading-relaxed pt-1">
+                {event.description}
+              </p>
             </CardContent>
           </Card>
         ))}
@@ -56,4 +69,3 @@ export default function Events() {
     </div>
   )
 }
-

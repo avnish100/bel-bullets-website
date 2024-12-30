@@ -99,56 +99,66 @@ export function Header() {
     }
 
     return (
-      <Button variant="ghost" asChild className="text-white hover:text-white/80">
+      <Button variant="secondary" asChild className="text-white hover:text-white/80">
         <Link href="/login">Log in</Link>
       </Button>
     )
   }
 
+  const NavLinks = () => (
+    <>
+      <Link href="/leaderboard" className="text-white hover:text-white/80">
+        Leaderboard
+      </Link>
+      <Link href="/about" className="text-white hover:text-white/80">
+        About
+      </Link>
+      <Link href="/events" className="text-white hover:text-white/80">
+        Events
+      </Link>
+      <Link href="/community" className="text-white hover:text-white/80">
+        Community
+      </Link>
+    </>
+  )
+
   return (
-    <header className="fixed top-0 w-full z-50 bg-black/50 backdrop-blur-md mb-10">
-      <div className="container mx-auto px-4 py-4 -mt-7 -mb-7">
+    <header className="fixed top-0 w-full z-50 bg-black/50 backdrop-blur-md">
+      <div className="container mx-auto px-4 py-2 md:py-4 mt-[-30px] mb-[-30px]">
         <nav className="flex items-center justify-between">
-          {/* Logo Section */}
-          <Link href="/" className="text-2xl font-bold text-white flex items-center">
+          {/* Logo Section - Responsive sizing */}
+          <Link href="/" className="flex items-center">
             <Image
               alt="Bel Bullets logo"
               src="/bel-bullets-logo.png"
-              className="content-center"
               width={100}
               height={50}
+              priority
             />
-            <div className={`content-center ml-2 ${merriweather.className}`}>BEL BULLETS</div>
+            <div className={`ml-2 text-lg md:text-2xl text-white ${merriweather.className}`}>
+              BEL BULLETS
+            </div>
           </Link>
 
-          {/* Navigation Links */}
-          <div className="flex items-center gap-4">
-            <Link href="/leaderboard" className="text-white hover:text-white/80">
-              Leaderboard
-            </Link>
-
-            {/* Auth Button */}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-6">
+            <NavLinks />
             {renderAuthButton()}
+          </div>
 
-            {/* Mobile Menu */}
+          {/* Mobile Navigation */}
+          <div className="md:hidden flex items-center gap-2">
+            {renderAuthButton()}
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-white">
-                  <Menu className="h-6 w-6" />
+                <Button variant="ghost" size="sm" className="text-white p-2">
+                  <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent>
-                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                <nav className="flex flex-col gap-4">
-                  <Link href="/about" className="text-lg">
-                    About
-                  </Link>
-                  <Link href="/events" className="text-lg">
-                    Events
-                  </Link>
-                  <Link href="/community" className="text-lg">
-                    Community
-                  </Link>
+              <SheetContent side="right" className="w-64">
+                <SheetTitle className="text-lg mb-4">Menu</SheetTitle>
+                <nav className="flex flex-col space-y-4">
+                  <NavLinks />
                 </nav>
               </SheetContent>
             </Sheet>
