@@ -49,7 +49,7 @@ async function logSyncSummary(summary: {
     .insert(summary)
 }
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest) {
   
   try {
     //Get profiles that need syncing
@@ -115,6 +115,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function POST() {
   return NextResponse.json({ error: 'Method not allowed' }, { status: 405 })
 }
