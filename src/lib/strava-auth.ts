@@ -17,7 +17,7 @@ export class StravaAuthService {
   }
 
   private async refreshToken(refreshToken: string): Promise<StravaTokens> {
-    const baseUrl = process.env.API_BASE_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const response = await fetch(`${baseUrl}/api/token/refresh`, {
       method: 'POST',
       headers: {
