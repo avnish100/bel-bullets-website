@@ -2,6 +2,18 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { StravaSyncService } from '@/services/strava-sync'
 import pLimit from 'p-limit'
+import { Resend } from 'resend'
+
+type Profile = {
+  email: string | null;
+}
+
+type RankChange = {
+  user_id: string;
+  previous_rank: number;
+  new_rank: number;
+  profiles: Profile;
+}
 
 // Constants
 const BATCH_SIZE = 20
@@ -15,6 +27,8 @@ const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
+
+const resend = new Resend(process.env.RESEND_API_KEY!)
 
 async function processProfile(userId: string, syncService: StravaSyncService) {
   try {
@@ -49,6 +63,62 @@ async function logSyncSummary(summary: {
     .insert(summary)
 }
 
+async function sendRankDropNotifications() {
+  // Get all users needing notification
+  const { data: rankDrops, error: rankDropsError } = await supabaseAdmin
+    .from('rank_changes')
+    .select(`
+      user_id,
+      previous_rank,
+      new_rank,
+      profiles (
+        email
+      )
+    `)
+    .eq('needs_notification', true)
+    .returns<RankChange[]>();
+
+  if (rankDropsError) {
+    console.error('Error fetching rank drops:', rankDropsError)
+    return
+  }
+
+  if (!rankDrops || rankDrops.length === 0) return
+
+  const emails = rankDrops
+    .map(drop => drop.profiles?.email)
+    .filter((email): email is string => Boolean(email))
+
+  if (emails.length > 0) {
+    try {
+      await resend.emails.send({
+        from: 'Bel Bullets <notifications@belbullets.run>',
+        to:"notifications@belbullets.run",
+        bcc: emails,
+        subject: 'Your Monthly Ranking Has Changed',
+        html: `
+          <p>Hello,</p>
+          <p>We noticed a change in your monthly ranking. Log in to check your updated position and see how you can improve!</p>
+          <p>Keep pushing to reach your monthly target!</p>
+          <p>Best regards,<br>Your App Team</p>
+        `,
+      })
+
+      // Update notification status
+      await supabaseAdmin
+        .from('rank_changes')
+        .update({ 
+          needs_notification: false, 
+          notified_at: new Date().toISOString() 
+        })
+        .in('user_id', rankDrops.map(drop => drop.user_id))
+
+    } catch (error) {
+      console.error('Failed to send rank drop notifications:', error)
+    }
+  }
+}
+
 export async function GET(req: NextRequest) {
   
   try {
@@ -60,7 +130,7 @@ export async function GET(req: NextRequest) {
       .or(
         `last_sync_time.is.null,` +
         `last_sync_time.lt.${new Date(Date.now() - 15 * 60 * 1000).toISOString()},`+
-        `last_sync_status.eq.failed`
+        `last_sync_status.eq.error`
       )
       .order('last_sync_time', { ascending: true, nullsFirst: true })
       .limit(100)
@@ -86,6 +156,8 @@ export async function GET(req: NextRequest) {
       )
       results.push(...batchResults)
     }
+
+    await sendRankDropNotifications()
 
     // Analyze results
     const successful = results.filter(r => r.status === 'fulfilled').length

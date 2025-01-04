@@ -10,6 +10,9 @@ import { Progress } from '@/components/ui/progress';
 import CircularProgress from '@/components/circularProgress';
 import router, { useRouter } from 'next/navigation';
 import StravaAuth from '@/components/StravaAuth';
+import { Button } from '@/components/ui/button';
+import { useLeaderboard } from './LeaderboardContext';
+
 
 interface LeaderboardEntry {
   rank: number;
@@ -36,6 +39,7 @@ interface Cache {
   leaderboard?: CachedData;
   activities?: CachedData;
   userStats?: CachedData;
+  rankedStats?: CachedData;
 }
 
 const CACHE_DURATION = 5 * 60 * 1000; 
@@ -69,10 +73,20 @@ const cacheUtils = {
   }
 };
 
+const fullRankings = Array.from({ length: 100 }, (_, i) => ({
+  rank: i + 1,
+  user_id: `user_${i + 1}`,
+  first_name: `First${i + 1}`,
+  last_name: `Last${i + 1}`,
+  total_distance: 150.5 - i,
+  total_time: 54000 - i * 100,
+}));
+
 export default function Leaderboard() {
   const [topRunners, setTopRunners] = useState<LeaderboardEntry[]>([]);
   const [activities, setActivities] = useState<ActivityData[]>([]);
   const [hasStravaToken, setHasStravaToken] = useState<boolean>(false);
+  const { setFullRankings } = useLeaderboard();
   const [cache, setCache] = useState<Cache>({});
   const [userStats, setUserStats] = useState<{
     rank: number;
@@ -95,6 +109,7 @@ export default function Leaderboard() {
       if (cachedData) {
         setTopRunners(cachedData.data.topRunners);
         setUserStats(cachedData.data.userStats);
+        setFullRankings(cachedData.data.rankedStats);
         return;
       }
 
@@ -145,11 +160,13 @@ export default function Leaderboard() {
       // Cache the data
       cacheUtils.set(cacheKey, {
         topRunners: topRunnersData,
-        userStats: userStatsData
+        userStats: userStatsData,
+        rankedStats: rankedStats
       });
 
       setTopRunners(topRunnersData);
       setUserStats(userStatsData);
+      setFullRankings(rankedStats);
 
     } catch (error) {
       console.error('Error fetching leaderboard data:', error);
@@ -225,6 +242,7 @@ export default function Leaderboard() {
         
         if (error) throw error;
         setHasStravaToken(!!data?.strava_access_token);
+
       } catch (error) {
         console.error('Error checking Strava token:', error);
       }
@@ -357,6 +375,14 @@ if (!hasStravaToken) {
                       ))}
                     </TableBody>
                   </Table>
+                  <div className="mt-4 flex justify-center">
+                    <Button
+                      onClick={() => router.push('/leaderboard/full-rankings')}
+                      variant="outline"
+                    >
+                      View Full Rankings
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
               <Card>
