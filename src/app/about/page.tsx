@@ -13,26 +13,15 @@ export default function About() {
           <CardContent className="pt-4 sm:pt-6">
             <div className="space-y-3 sm:space-y-4">
               <p className="text-base sm:text-lg leading-relaxed">
-                Welcome to Run Club, a community of passionate runners dedicated to promoting health, fitness, and camaraderie through the sport of running.
+              The BEL BULLETS RUN CLUB is a community founded to make running a habit that's more fun and repeatable. 
               </p>
               <p className="text-base sm:text-lg leading-relaxed">
-                Founded in 2010, Run Club has grown from a small group of friends to a thriving community of runners of all levels. Whether you're a beginner looking to complete your first 5K or an experienced marathoner aiming for a personal best, Run Club offers support, motivation, and resources to help you achieve your goals.
+              Founded in February 6 by two friends that run in the BEL area every other week , this community has aimed to primarily get it's members involved in the space as much as possible. So if you're looking to kickstart your new year with running more often you're in the right place !
               </p>
             </div>
           </CardContent>
         </Card>
-
-        {/* Mission Card */}
-        <Card className="shadow-sm">
-          <CardHeader className="pb-2 sm:pb-4">
-            <CardTitle className="text-xl sm:text-2xl">Our Mission</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-base sm:text-lg leading-relaxed">
-              Our mission is to inspire and empower individuals to embrace an active lifestyle through running. We believe that running is not just about physical fitness, but also about mental well-being and building lasting friendships.
-            </p>
-          </CardContent>
-        </Card>
+        
 
         {/* What We Offer Card */}
         <Card className="shadow-sm">
@@ -41,11 +30,12 @@ export default function About() {
           </CardHeader>
           <CardContent>
             <ul className="list-disc pl-4 sm:pl-6 space-y-2 text-base sm:text-lg">
-              <li className="leading-relaxed">Weekly group runs for all levels</li>
-              <li className="leading-relaxed">Training programs for various race distances</li>
-              <li className="leading-relaxed">Educational workshops on running techniques and injury prevention</li>
-              <li className="leading-relaxed">Social events to connect with fellow runners</li>
-              <li className="leading-relaxed">Volunteer opportunities at local running events</li>
+              <li className="leading-relaxed">Weekly training sessions in North and South Bengaluru </li>
+              <li className="leading-relaxed">Weekly social runs</li>
+              <li className="leading-relaxed">Community leaderboard</li>
+              <li className="leading-relaxed">Discounts on group registrations for races across the city </li>
+              <li className="leading-relaxed">Exposure to other fitness centres by means of community mixers</li>
+              <li className="leading-relaxed">Best dosas of Bengaluru</li>
             </ul>
           </CardContent>
         </Card>

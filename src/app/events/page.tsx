@@ -6,34 +6,18 @@ export default function Events() {
       id: 1,
       name: "Saturday Morning Group Run",
       date: "Every Saturday",
-      time: "8:00 AM",
-      location: "City Park Main Entrance",
+      time: "6:30 AM",
+      location: "Cubbon Park Main Entrance",
       description: "Join us for our weekly group run. All paces welcome!"
     },
     {
       id: 2,
-      name: "Midweek Track Workout",
+      name: "Wednesday Intervals",
       date: "Every Wednesday",
-      time: "6:30 PM",
-      location: "Local High School Track",
+      time: "6:30 AM",
+      location: "RMV Club, Dollars Colony",
       description: "Speed work and interval training to improve your pace."
     },
-    {
-      id: 3,
-      name: "Annual City Marathon",
-      date: "October 15, 2023",
-      time: "7:00 AM",
-      location: "Downtown City Center",
-      description: "Our biggest event of the year! Choose from full marathon, half marathon, or 10K distances."
-    },
-    {
-      id: 4,
-      name: "Trail Running Adventure",
-      date: "First Sunday of every month",
-      time: "7:30 AM",
-      location: "Mountain Trail Parking Lot",
-      description: "Explore local trails and enjoy nature with fellow runners."
-    }
   ]
 
   return (

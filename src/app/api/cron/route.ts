@@ -3,7 +3,9 @@ import { createClient } from '@supabase/supabase-js'
 import { StravaSyncService } from '@/services/strava-sync'
 import pLimit from 'p-limit'
 import { Resend } from 'resend'
-
+import RankDropEmail from '@/components/rank-drop-email'
+import { render } from '@react-email/render'
+ 
 type Profile = {
   email: string | null;
 }
@@ -89,6 +91,8 @@ async function sendRankDropNotifications() {
     .map(drop => drop.profiles?.email)
     .filter((email): email is string => Boolean(email))
 
+  const emailHtml = await render(RankDropEmail({}));
+
   if (emails.length > 0) {
     try {
       await resend.emails.send({
@@ -96,12 +100,7 @@ async function sendRankDropNotifications() {
         to:"notifications@belbullets.run",
         bcc: emails,
         subject: 'Your Monthly Ranking Has Changed',
-        html: `
-          <p>Hello,</p>
-          <p>We noticed a change in your monthly ranking. Log in to check your updated position and see how you can improve!</p>
-          <p>Keep pushing to reach your monthly target!</p>
-          <p>Best regards,<br>Your App Team</p>
-        `,
+        html: emailHtml,
       })
 
       // Update notification status

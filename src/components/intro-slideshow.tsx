@@ -16,70 +16,70 @@ const coords = { lat: '12°58\'30"N', lon: '77°35\'36"E' }
 const slides = [
   {
     id: 1,
-    src: '/spot-runs-start-la.jpg',
+    src: '/bbrc9.jpeg',
     alt: 'Motion blur figure',
     text: 'BEL BULLETS',
     coordinates: coords
   },
   {
     id: 2,
-    src: '/pexels-photo-1072705.jpeg',
+    src: '/bbrc5.jpeg',
     alt: 'Silhouettes',
     text: 'BEL BULLETS',
     coordinates: coords
   },
   {
     id: 3,
-    src: '/pexels-photo-1564470.jpeg',
+    src: '/bbrc7.jpeg',
     alt: 'Tree path',
     text: 'BEL BULLETS',
     coordinates: coords
   },
   {
     id: 4,
-    src: '/relay-race-competition-stadium-sport.jpg',
+    src: '/bbrc8.jpeg',
     alt: 'Group photo',
     text: 'BEL BULLETS',
     coordinates: coords
   },
   {
     id: 5,
-    src: '/pexels-photo-2524740.jpeg',
+    src: '/bbrc10.jpeg',
     alt: 'Group photo',
     text: 'BEL BULLETS',
     coordinates: coords
   },
   {
     id: 6,
-    src: '/spot-runs-start-la.jpg',
+    src: '/bbrc11.jpeg',
     alt: 'Motion blur figure',
     text: 'BEL BULLETS',
     coordinates: coords
   },
   {
     id: 7,
-    src: '/pexels-photo-1072705.jpeg',
+    src: '/bbrc5.jpeg',
     alt: 'Silhouettes',
     text: 'BEL BULLETS',
     coordinates: coords
   },
   {
     id: 8,
-    src: '/pexels-photo-1564470.jpeg',
+    src: '/bbrc6.jpeg',
     alt: 'Tree path',
     text: 'BEL BULLETS',
     coordinates: coords
   },
   {
     id: 9,
-    src: '/relay-race-competition-stadium-sport.jpg',
+    src: '/bbrc7.jpeg',
     alt: 'Group photo',
     text: 'BEL BULLETS',
     coordinates: coords
   },
   {
     id: 10,
-    src: '/pexels-photo-2524740.jpeg',
+    src: '/bbrc8.jpeg',
     alt: 'Group photo',
     text: 'BEL BULLETS',
     coordinates: coords

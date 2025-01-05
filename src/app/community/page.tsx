@@ -14,30 +14,15 @@ export default function Community() {
         <Card className="shadow-sm">
           <CardContent className="pt-4 sm:pt-6">
             <p className="text-base sm:text-lg leading-relaxed">
-              At Run Club, we're proud of our diverse and supportive community. Our members come from all walks of life, united by their passion for running and personal growth. We welcome runners of all levels, from beginners to experienced marathoners.
+            Hey! We’re an open community that runs every Saturday around metro friendly spots, the community is for everybody that would like to get into running/ is already an avid runner. We also register for events together try to train virtually and try to create a network of runners for each person around their locality. 
+
+Once you finish one group run with us you are officially part of the community and will be eligible to take part in all other community activities .
+
+Do join the WhatsApp community link to be able to participate in future runs . You will just need to be on the announcements channel for this :)
             </p>
           </CardContent>
         </Card>
-
-        {/* How to Join Card */}
-        <Card className="shadow-sm">
-          <CardHeader className="pb-2 sm:pb-4">
-            <CardTitle className="text-xl sm:text-2xl">How to Join</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3 sm:space-y-4">
-              <p className="text-base sm:text-lg leading-relaxed">
-                Joining Run Club is easy and free! Here's how you can become a part of our community:
-              </p>
-              <ol className="list-decimal pl-4 sm:pl-6 space-y-2 text-base sm:text-lg">
-                <li className="leading-relaxed">Attend one of our weekly group runs (check our Events page for details)</li>
-                <li className="leading-relaxed">Fill out a quick registration form at the run (we'll provide it)</li>
-                <li className="leading-relaxed">Join our online communities to stay connected between runs</li>
-              </ol>
-            </div>
-          </CardContent>
-        </Card>
-
+        
         {/* Connect With Us Card */}
         <Card className="shadow-sm">
           <CardHeader className="pb-2 sm:pb-4">
