@@ -40,7 +40,7 @@ Do join the WhatsApp community link to be able to participate in future runs . Y
                   className="w-full sm:w-auto text-sm sm:text-base px-3 py-2 h-auto"
                 >
                   <a 
-                    href="https://www.strava.com/clubs/runclub" 
+                    href="https://www.strava.com/clubs/belbullets" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center justify-center"
@@ -54,7 +54,7 @@ Do join the WhatsApp community link to be able to participate in future runs . Y
                   className="w-full sm:w-auto text-sm sm:text-base px-3 py-2 h-auto"
                 >
                   <a 
-                    href="https://chat.whatsapp.com/runclub" 
+                    href="https://chat.whatsapp.com/GgMUobMcSUe46dY5or1nEm" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center justify-center"
@@ -68,7 +68,7 @@ Do join the WhatsApp community link to be able to participate in future runs . Y
                   className="w-full sm:w-auto text-sm sm:text-base px-3 py-2 h-auto"
                 >
                   <a 
-                    href="https://www.instagram.com/runclub" 
+                    href="https://www.instagram.com/belbullets" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center justify-center"
