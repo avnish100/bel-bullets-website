@@ -12,10 +12,18 @@ export default function Events() {
     },
     {
       id: 2,
-      name: "Wednesday Intervals",
+      name: "Wednesday Intervals - North Bengaluru",
       date: "Every Wednesday",
       time: "6:30 AM",
-      location: "RMV Club, Dollars Colony",
+      location: "RMV Club Entrance, Dollars Colony",
+      description: "Speed work and interval training to improve your pace."
+    },
+    {
+      id: 2,
+      name: "Wednesday Intervals - South Bengaluru",
+      date: "Every Wednesday",
+      time: "6:30 AM",
+      location: "Kittur Rani Chenamma Stadium, Behind Madhavan Park",
       description: "Speed work and interval training to improve your pace."
     },
   ]
