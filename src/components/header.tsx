@@ -2,13 +2,16 @@
 
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ShoppingCart, Menu } from 'lucide-react'
-import { useState, useEffect } from 'react'
-import { createClient } from '@/utils/supabase/client'
+import { Menu } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
 import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
 import { Merriweather } from 'next/font/google'
+import { useState, useEffect } from 'react'
+import { createClient } from '@/utils/supabase/client'
+
+const supabase = createClient()
+const AUTH_TIMEOUT_MS = 1000
 
 const merriweather = Merriweather({
   style: 'normal',
@@ -16,13 +19,9 @@ const merriweather = Merriweather({
   subsets: ["latin"]
 })
 
-
-const supabase = createClient()
-const AUTH_TIMEOUT_MS = 5000
-
 export function Header() {
-  const [userId, setUserId] = useState<string | null | undefined>(undefined)
-  const [isLoading, setIsLoading] = useState(false)
+  const [userId, setUserId] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const pathname = usePathname()
 
@@ -43,18 +42,20 @@ export function Header() {
       
       if (error) {
         console.error('Error fetching session:', error)
+        setUserId(null)
         return
       }
 
       setUserId(session?.user?.id ?? null)
     } catch (error) {
       console.error('Unexpected error:', error)
-      setUserId(null) // Reset to not logged in state on timeout/error
+      setUserId(null)
     } finally {
       setIsLoading(false)
     }
   }
 
+  // Check session on mount and route changes
   useEffect(() => {
     checkSession()
   }, [pathname])
@@ -62,11 +63,8 @@ export function Header() {
   // Listen for auth state changes
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log('Auth state changed:', event, 'User:', session?.user?.id)
-      
-      if (event === 'SIGNED_IN') {
+      if (event === 'SIGNED_IN' && session?.user.id) {
         setUserId(session?.user?.id)
-        await checkSession()
         router.refresh()
       } else if (event === 'SIGNED_OUT') {
         setUserId(null)
@@ -75,11 +73,11 @@ export function Header() {
     })
 
     return () => {
-      subscription?.unsubscribe()
+      subscription.unsubscribe()
     }
   }, [router])
 
-  const renderAuthButton = () => {
+  const AuthButton = () => {
     if (isLoading) {
       return <span className="text-white">Loading...</span>
     }
@@ -126,7 +124,6 @@ export function Header() {
     <header className="fixed top-0 w-full z-50 bg-black/50 backdrop-blur-md">
       <div className="container mx-auto px-4 py-2 md:py-4 mt-[-30px] mb-[-30px]">
         <nav className="flex items-center justify-between">
-          {/* Logo Section - Responsive sizing */}
           <Link href="/" className="flex items-center">
             <Image
               alt="Bel Bullets logo"
@@ -140,15 +137,13 @@ export function Header() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             <NavLinks />
-            {renderAuthButton()}
+            <AuthButton />
           </div>
 
-          {/* Mobile Navigation */}
           <div className="md:hidden flex items-center gap-2">
-            {renderAuthButton()}
+            <AuthButton />
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="sm" className="text-white p-2">
