@@ -6,30 +6,18 @@ const upcomingRuns = [
   {
     type: 'BEL BULLETS Intervals',
     name: 'Interval Training',
-    date: 'December 20, 2024 5:45 am',
-    distance: '5.8km',
-    pace: '±37'
-  },
-  {
-    type: 'BEL BULLETS Weekend Run',
-    name: 'BEL BULLETS Weekend Run',
-    date: 'December 24, 2024 6:30 pm',
+    when: 'Every Wednesday, 6:30 AM',
     distance: '3km',
-    pace: 'Multiple'
+    pace: 'Multiple',
+    formLink: 'https://docs.google.com/forms/d/e/1FAIpQLSebM-ib8eYaLlRlcfASIDeKLxIMk5Yih-Hug4AIdjpq9YUBQQ/viewform'
   },
   {
     type: 'BEL BULLETS Weekend Run',
     name: 'BEL BULLETS Weekend Run',
-    date: 'December 24, 2024 6:30 pm',
-    distance: '5km',
-    pace: 'Multiple'
-  },
-  {
-    type: 'BEL BULLETS Weekend Run',
-    name: 'BEL BULLETS Weekend Run',
-    date: 'December 24, 2024 6:30 pm',
-    distance: '10km',
-    pace: 'Multiple'
+    date: 'Every Saturday, 6:30 AM',
+    distance: 'Multiple',
+    pace: 'Multiple',
+    formLink: 'https://docs.google.com/forms/d/e/1FAIpQLSfvZ_ylAra2_teTxmu1AzoIKr_N4sXPPwSmNM8U6LwfrnzTkQ/viewform?usp=dialog'
   },
 ]
 
@@ -41,23 +29,24 @@ export function InfoSections() {
           <h2 className="text-4xl font-bold mb-12">Pick your pace.</h2>
           <div className="space-y-6">
             {upcomingRuns.map((run, index) => (
-              <div key={index} className="flex items-center justify-between border-t border-white/10 py-4">
-                <div className="space-y-2">
-                  <Badge variant="default" className=" border-none">
+              <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between border-t border-white/10 py-4">
+                <div className="space-y-2 mb-4 sm:mb-0">
+                  <Badge variant="default" className="border-none">
                     {run.type}
                   </Badge>
                   <h3 className="text-xl font-medium">{run.name}</h3>
-                  <p className="text-white/60">{run.date}</p>
+                  <p className="text-white/60">{run.date || run.when}</p>
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="bg-white/10 border-none">
-                      {run.distance}
-                    </Badge>
-                    <Badge variant="outline" className="bg-white/10 border-none">
-                      {run.pace}
-                    </Badge>
-                  </div>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <Button 
+                    variant="default"
+                    asChild
+                    className="font-medium px-4 py-2 text-sm"
+                  >
+                    <Link href={run.formLink} target="_blank" rel="noopener noreferrer">
+                      Register
+                    </Link>
+                  </Button>
                 </div>
               </div>
             ))}
@@ -70,15 +59,14 @@ export function InfoSections() {
           <div className="inline-block rounded-full overflow-hidden mb-6">
           </div>
           <h2 className="text-4xl font-bold mb-6">
-            Running with 6504 and counting.
+            Running with 2500 and counting.
           </h2>
           <Button 
-          variant="default"
-          asChild
+            variant="default"
+            asChild
             className="font-medium px-8 py-6 text-lg"
           >
-            <Link href='/register'>Register Now </Link>
-            
+            <Link href='/register'>Register Now</Link>
           </Button>
         </div>
       </section>

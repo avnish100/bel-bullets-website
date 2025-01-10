@@ -1,0 +1,22 @@
+name: Trigger Cron Job
+
+on:
+  schedule:
+    # This will run every 6 hours
+    - cron: '0 */6 * * *'
+
+jobs:
+  trigger_cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel Cron Job
+        env:
+          CRON_URL: ${{ secrets.CRON_URL }}
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" $CRON_URL)
+          if [ $response -eq 200 ]; then
+            echo "Cron job triggered successfully"
+          else
+            echo "Failed to trigger cron job. HTTP status code: $response"
+            exit 1
+          fi
