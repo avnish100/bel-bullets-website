@@ -3,7 +3,8 @@ name: Trigger Cron Job
 on:
   schedule:
     # This will run every 6 hours
-    - cron: '0 */6 * * *'
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
 
 jobs:
   trigger_cron:
