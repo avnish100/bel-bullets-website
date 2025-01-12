@@ -54,22 +54,33 @@ export function InfoSections() {
         </div>
       </section>
 
-      <section className="py-20 border-t border-white/10">
-        <div className="container mx-auto px-4 text-center">
-          <div className="inline-block rounded-full overflow-hidden mb-6">
+      <section className="py-16 border-t border-white/10">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6">
+              Join our community of 2500+ runners
+            </h2>
+            <p className="text-xl mb-8 text-white/80">
+              Whether you're looking to participate in our runs or help organize them, 
+              there's a place for you in the BEL BULLETS family.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Button 
+                variant="secondary"
+                asChild
+                className="font-medium px-8 py-3 text-lg"
+              >
+                <Link href='https://forms.gle/Df2xD3RX95Y7NhH37'>Volunteer</Link>
+              </Button>
+              <Button 
+                variant="default"
+                asChild
+                className="font-medium px-8 py-3 text-lg "
+              >
+                <Link href='/register'>Register as Runner</Link>
+              </Button>
+            </div>
           </div>
-          <h2 className="text-4xl font-bold mb-6">
-            Running with 2500 and counting.
-          </h2>
-          <Button 
-            variant="default"
-            asChild
-            className="font-medium px-8 py-6 text-lg"
-          >
-            <Link href='/register'>Register Now</Link>
-          </Button>
-        </div>
-      </section>
+        </section>
     </div>
   )
 }
