@@ -4,7 +4,7 @@ export default function About() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 mt-16 sm:mt-20 mb-8">
       <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 tracking-tight">
-        About Run Club
+        About BEL BULLETS
       </h1>
       
       <div className="space-y-4 sm:space-y-6">

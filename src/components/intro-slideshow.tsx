@@ -37,7 +37,7 @@ const slides = [
   },
   {
     id: 4,
-    src: '/bbrc8.jpeg',
+    src: '/bbrc8.webp',
     alt: 'Group photo',
     text: 'BEL BULLETS',
     coordinates: coords
@@ -79,7 +79,7 @@ const slides = [
   },
   {
     id: 10,
-    src: '/bbrc8.jpeg',
+    src: '/bbrc8.webp',
     alt: 'Group photo',
     text: 'BEL BULLETS',
     coordinates: coords
@@ -114,7 +114,7 @@ interface IntroSlideshowProps {
           clearInterval(interval)
           setTimeout(onComplete, 1000)
         }
-      }, 300)
+      }, 250)
   
       return () => clearInterval(interval)
     }, [currentSlide, onComplete])
