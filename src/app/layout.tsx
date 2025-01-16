@@ -14,6 +14,9 @@ const roboto = Roboto({
 export const metadata = {
   title: 'Bel Bullets Run Club',
   description: 'Join our running community',
+  icons:{
+    icon:'/bel-bullets-logo.png'
+  }
 }
 
 export default function RootLayout({
