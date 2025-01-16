@@ -27,7 +27,7 @@ export default function Events() {
       id: 3,
       name: "Wednesday Intervals - South Bengaluru",
       date: "Every Wednesday",
-      time: "6:30 AM",
+      time: "7:00 PM",
       location: "Kittur Rani Chenamma Stadium, Behind Madhavan Park",
       description: "Speed work and interval training to improve your pace."
     },

@@ -22,6 +22,7 @@ const merriweather = Merriweather({
 export function Header() {
   const [userId, setUserId] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [isSheetOpen, setIsSheetOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
 
@@ -103,18 +104,18 @@ export function Header() {
     )
   }
 
-  const NavLinks = () => (
+  const NavLinks = ({ onClick }: { onClick?: () => void }) => (
     <>
-      <Link href="/leaderboard" className="text-white hover:text-white/80">
+      <Link href="/leaderboard" className="text-white hover:text-white/80" onClick={onClick}>
         Leaderboard
       </Link>
-      <Link href="/about" className="text-white hover:text-white/80">
+      <Link href="/about" className="text-white hover:text-white/80" onClick={onClick}>
         About
       </Link>
-      <Link href="/events" className="text-white hover:text-white/80">
+      <Link href="/events" className="text-white hover:text-white/80" onClick={onClick}>
         Events
       </Link>
-      <Link href="/community" className="text-white hover:text-white/80">
+      <Link href="/community" className="text-white hover:text-white/80" onClick={onClick}>
         Community
       </Link>
     </>
@@ -144,7 +145,7 @@ export function Header() {
 
           <div className="md:hidden flex items-center gap-2">
             <AuthButton />
-            <Sheet>
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="sm" className="text-white p-2">
                   <Menu className="h-5 w-5" />
@@ -153,7 +154,7 @@ export function Header() {
               <SheetContent side="right" className="w-64">
                 <SheetTitle className="text-lg mb-4">Menu</SheetTitle>
                 <nav className="flex flex-col space-y-4">
-                  <NavLinks />
+                  <NavLinks onClick={() => setIsSheetOpen(false)} />
                 </nav>
               </SheetContent>
             </Sheet>
@@ -163,3 +164,4 @@ export function Header() {
     </header>
   )
 }
+
