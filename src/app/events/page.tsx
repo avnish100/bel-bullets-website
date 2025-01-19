@@ -98,7 +98,7 @@ export default function Events() {
                 className="bg-red-600 hover:bg-red-700 text-white shadow-md hover:shadow-lg transition-all"
               >
                 <Link 
-                  href="https://www.wingsforlifeworldrun.com/en" 
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSeAPbFmGmGfPIoO4uly0BtJv_XuBed5OWPqId-HCe-wCKIIQg/viewform" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
