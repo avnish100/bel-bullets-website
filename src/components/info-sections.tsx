@@ -23,7 +23,7 @@ const upcomingRuns = [
 
 export function InfoSections() {
   return (
-    <div className="bg-black text-white">
+    <div className="bg-gradient-to-b from-black to-zinc-900 text-white">
       <section className="py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold mb-12">Pick your pace.</h2>
@@ -65,7 +65,7 @@ export function InfoSections() {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button 
-                variant="secondary"
+                variant="outline"
                 asChild
                 className="font-medium px-8 py-3 text-lg"
               >
