@@ -27,7 +27,7 @@
       imageUrl : "redbull-wings-for-life.png",
       mobileImageUrl: "redbull-wings-for-life-world-run.png",
       description: "Let's run for those who can't. Join us for the Wings for Life World Run. All proceeds go to spinal cord research. Sign up now!",
-      signUpLink: "https://docs.google.com/forms/d/e/1FAIpQLSeAPbFmGmGfPIoO4uly0BtJv_XuBed5OWPqId-HCe-wCKIIQg/viewform"
+      signUpLink: "https://forms.gle/UrvasxyvvBwJDHx19"
     },
     {
       id: 2,
