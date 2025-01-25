@@ -5,7 +5,7 @@ import pLimit from 'p-limit'
 import { Resend } from 'resend'
 import RankDropEmail from '@/components/rank-drop-email'
 import { render } from '@react-email/render'
- 
+
 type Profile = {
   email: string | null;
 }
@@ -18,7 +18,7 @@ type RankChange = {
 }
 
 // Constants
-const BATCH_SIZE = 20
+const BATCH_SIZE = 100
 const STRAVA_RATE_LIMIT = 100
 
 // Initialize rate limiter
