@@ -139,7 +139,7 @@
 
           {/* Events Carousel */}
           <div className="relative z-10 w-full max-w-7xl px-8 sm:px-6 lg:px-8 mt-[10%]">
-            <EventCarousel events={events} />
+            <EventCarousel />
           </div>
         </main>
 

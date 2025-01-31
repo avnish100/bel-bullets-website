@@ -12,6 +12,8 @@ import router, { useRouter } from 'next/navigation';
 import StravaAuth from '@/components/StravaAuth';
 import { Button } from '@/components/ui/button';
 import { useLeaderboard } from './LeaderboardContext';
+import { client } from '@/sanity/lib/client'
+import { SponsorshipBanner } from '@/components/sponsorship-banner';
 
 
 interface LeaderboardEntry {
@@ -40,6 +42,14 @@ interface Cache {
   activities?: CachedData;
   userStats?: CachedData;
   rankedStats?: CachedData;
+}
+
+interface Sponsor {
+  name: string;
+  logo: string;
+  url: string;
+  description: string;
+  color: string;
 }
 
 const CACHE_DURATION = 5 * 60 * 1000; 
@@ -83,6 +93,7 @@ const fullRankings = Array.from({ length: 100 }, (_, i) => ({
 }));
 
 export default function Leaderboard() {
+  const [sponsor, setSponsor] = useState<Sponsor | null>(null);
   const [topRunners, setTopRunners] = useState<LeaderboardEntry[]>([]);
   const [activities, setActivities] = useState<ActivityData[]>([]);
   const [hasStravaToken, setHasStravaToken] = useState<boolean>(false);
@@ -203,7 +214,27 @@ export default function Leaderboard() {
     }
   }
   
+  useEffect(() => {
+    async function fetchSponsor() {
+      const query = `*[_type == "sponsor"][0]{
+        name,
+        "logo": logo.asset->url,
+        url,
+        description,
+        color
+      }`;
+      const data = await client.fetch(query);
 
+      if (data) {
+        console.log("data", data);
+        setSponsor(data);
+      } else {
+        console.error('Error fetching sponsor data from Sanity');
+      }
+    }
+
+    fetchSponsor();
+  }, []);
   useEffect(() => {
     async function getSession() {
       const { data: { session }, error } = await supabase.auth.getSession();
@@ -339,6 +370,9 @@ if (!hasStravaToken) {
 
   return (
     <div className="container py-12 dark mt-10 mx-auto">
+      {sponsor && (
+        <SponsorshipBanner name={sponsor.name} logo={sponsor.logo} url={sponsor.url} />
+      )}
       <div className="grid gap-8 md:grid-cols-3 box-shadow-md">
         <Card className="md:col-span-2">
           <CardHeader>

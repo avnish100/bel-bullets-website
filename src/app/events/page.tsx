@@ -4,37 +4,27 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Medal, ExternalLink } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { client } from '@/sanity/lib/client'
+
+const query = `*[_type == "event"]`
 
 export default function Events() {
-  const events = [
-    {
-      id: 1,
-      name: "Saturday Morning Group Run",
-      date: "Every Saturday",
-      time: "6:30 AM",
-      location: "Cubbon Park Main Entrance",
-      description: "Join us for our weekly group run. All paces welcome!",
-      formLink: "https://docs.google.com/forms/d/e/1FAIpQLSfvZ_ylAra2_teTxmu1AzoIKr_N4sXPPwSmNM8U6LwfrnzTkQ/viewform?usp=dialog"
-    },
-    {
-      id: 2,
-      name: "Wednesday Intervals - North Bengaluru",
-      date: "Every Wednesday",
-      time: "6:30 AM",
-      location: "RMV Club Entrance, Dollars Colony",
-      description: "Speed work and interval training to improve your pace.",
-      formLink: "https://docs.google.com/forms/d/e/1FAIpQLSebM-ib8eYaLlRlcfASIDeKLxIMk5Yih-Hug4AIdjpq9YUBQQ/viewform"
-    },
-    {
-      id: 3,
-      name: "Wednesday Intervals - South Bengaluru",
-      date: "Every Wednesday",
-      time: "7:00 PM",
-      location: "Kittur Rani Chenamma Stadium, Behind Madhavan Park",
-      description: "Speed work and interval training to improve your pace.",
-      formLink: "https://docs.google.com/forms/d/e/1FAIpQLSebM-ib8eYaLlRlcfASIDeKLxIMk5Yih-Hug4AIdjpq9YUBQQ/viewform"
-    },
-  ]
+  interface Event {
+    _id: string;
+    name: string;
+    date: string;
+    time: string;
+    location: string;
+    description: string;
+    formLink: string;
+  }
+  
+  const [events, setEvents] = useState<Event[]>([])
+
+  useEffect(() => {
+    client.fetch(query).then((data) => setEvents(data))
+  }, [])
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 mt-16 sm:mt-20 mb-8">
@@ -44,7 +34,7 @@ export default function Events() {
       
       <div className="grid gap-4 sm:gap-6 mb-12">
         {events.map((event) => (
-          <Card key={event.id} className="shadow-sm hover:shadow-md transition-shadow">
+          <Card key={event._id} className="shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="pb-2 sm:pb-4">
               <CardTitle className="text-xl sm:text-2xl leading-tight">
                 {event.name}
