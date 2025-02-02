@@ -1,5 +1,3 @@
-
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -46,6 +44,11 @@ export default function LoginPage() {
               Sign In
             </Button>
           </form>
+          <div className="mt-2 text-center text-sm">
+              <Link href="/forgot-password" className="text-primary hover:underline">
+                Forgot Password?
+              </Link>
+            </div>
           <div className="mt-4 text-center text-sm">
             <Link href="/register" className="text-primary hover:underline">
               New member? Register here
