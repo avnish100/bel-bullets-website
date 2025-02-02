@@ -7,23 +7,25 @@ import { Medal, ExternalLink } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { client } from '@/sanity/lib/client'
 
-const query = `*[_type == "event"]`
+const query = `*[_type == "event" && isSponsor != true]`
 
 export default function Events() {
   interface Event {
     _id: string;
-    name: string;
+    title: string;
     date: string;
     time: string;
     location: string;
     description: string;
-    formLink: string;
+    signUpLink: string;
   }
   
   const [events, setEvents] = useState<Event[]>([])
 
   useEffect(() => {
-    client.fetch(query).then((data) => setEvents(data))
+    client.fetch(query).then((data) => {setEvents(data)
+      console.log(data)
+    })
   }, [])
 
   return (
@@ -37,7 +39,7 @@ export default function Events() {
           <Card key={event._id} className="shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="pb-2 sm:pb-4">
               <CardTitle className="text-xl sm:text-2xl leading-tight">
-                {event.name}
+                {event.title}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 sm:space-y-3">
@@ -55,7 +57,7 @@ export default function Events() {
               <div className="pt-2">
                 <Button asChild>
                   <Link 
-                    href={event.formLink}
+                    href={event.signUpLink}
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
