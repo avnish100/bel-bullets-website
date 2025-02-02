@@ -8,7 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { createClient } from '@/utils/supabase/client'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 
-export default function ForgotPasswordPage() {
+// Create a separate component for the form content
+function PasswordResetForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -119,74 +120,81 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="min-h-screen flex items-center justify-center bg-black p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>{isPasswordReset ? 'Update Password' : 'Forgot Password'}</CardTitle>
-            <CardDescription>
-              {isPasswordReset ? 'Enter your new password' : 'Enter your email to reset your password'}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={isPasswordReset ? handleUpdatePassword : handlePasswordReset} className="space-y-4">
-              {isPasswordReset ? (
-                <>
-                  <div className="space-y-2">
-                    <Label htmlFor="password">New Password</Label>
-                    <Input 
-                      id="password" 
-                      name="password"
-                      type="password" 
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required 
-                      minLength={6}
-                      disabled={loading}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="confirmPassword">Confirm Password</Label>
-                    <Input 
-                      id="confirmPassword" 
-                      name="confirmPassword"
-                      type="password" 
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      required 
-                      minLength={6}
-                      disabled={loading}
-                    />
-                  </div>
-                </>
-              ) : (
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input 
-                    id="email" 
-                    name="email"
-                    type="email" 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required 
-                    disabled={loading}
-                  />
-                </div>
-              )}
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Please wait...' : isPasswordReset ? 'Update Password' : 'Send Reset Link'}
-              </Button>
-            </form>
-            {message && (
-              <Alert className={`mt-4 ${message.type === 'error' ? 'bg-destructive/15' : 'bg-primary/15'}`}>
-                <AlertDescription>
-                  {message.text}
-                </AlertDescription>
-              </Alert>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    </Suspense>
+    <Card className="w-full max-w-md">
+      <CardHeader>
+        <CardTitle>{isPasswordReset ? 'Update Password' : 'Forgot Password'}</CardTitle>
+        <CardDescription>
+          {isPasswordReset ? 'Enter your new password' : 'Enter your email to reset your password'}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={isPasswordReset ? handleUpdatePassword : handlePasswordReset} className="space-y-4">
+          {isPasswordReset ? (
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="password">New Password</Label>
+                <Input 
+                  id="password" 
+                  name="password"
+                  type="password" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required 
+                  minLength={6}
+                  disabled={loading}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Input 
+                  id="confirmPassword" 
+                  name="confirmPassword"
+                  type="password" 
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required 
+                  minLength={6}
+                  disabled={loading}
+                />
+              </div>
+            </>
+          ) : (
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input 
+                id="email" 
+                name="email"
+                type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required 
+                disabled={loading}
+              />
+            </div>
+          )}
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? 'Please wait...' : isPasswordReset ? 'Update Password' : 'Send Reset Link'}
+          </Button>
+        </form>
+        {message && (
+          <Alert className={`mt-4 ${message.type === 'error' ? 'bg-destructive/15' : 'bg-primary/15'}`}>
+            <AlertDescription>
+              {message.text}
+            </AlertDescription>
+          </Alert>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+
+// Main component with proper Suspense boundary
+export default function ForgotPasswordPage() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-black p-4">
+      <Suspense fallback={<div>Loading...</div>}>
+        <PasswordResetForm />
+      </Suspense>
+    </div>
   )
 }
