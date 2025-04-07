@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bel Bullets Website
+
+A Next.js-based web application for the Bel Bullets running club that integrates with Strava to track member activities and maintain leaderboards.
+
+## Features
+
+- Strava Integration for activity tracking
+- User authentication with Supabase
+- Leaderboard system for running activities
+- Club member dashboard
+- Event management
+- Community features
+- Close to Real-time activity sync
+- Automated rank notifications
+
+## Tech Stack
+
+- **Frontend**: Next.js 14 with TypeScript
+- **Authentication**: Supabase Auth
+- **Database**: Supabase PostgreSQL
+- **CMS**: Sanity.io
+- **Styling**: Tailwind CSS
+- **API Integration**: Strava API
+- **Email**: Resend
+
+## Prerequisites
+
+- Node.js 18.x or later
+- npm or yarn
+- A Supabase account
+- A Strava API application
+- A Resend account (for emails)
+- A Sanity.io account
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**
+   ```bash
+   git clone [repository-url]
+   cd bel-bullets-website
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Environment Variables**
+   Create a `.env.local` file in the root directory. I will provide you with the necessary values:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=
+   SUPABASE_SERVICE_ROLE_KEY=
+   NEXT_PUBLIC_STRAVA_CLIENT_ID=
+   STRAVA_CLIENT_SECRET=
+   NEXT_PUBLIC_BASE_URL=
+   RESEND_API_KEY=
+   NEXT_PUBLIC_SANITY_PROJECT_ID=
+   NEXT_PUBLIC_SANITY_DATASET=
+   SANITY_API_TOKEN=
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. **Run the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+- `/src/app` - Next.js app router pages and API routes
+- `/src/components` - Reusable React components
+- `/src/lib` - Core utilities and configurations
+- `/src/services` - Service layer for strava sync
+- `/src/utils` - Helper functions and utilities
+- `/src/types` - TypeScript type definitions
+- `/public` - Static assets
+- `/sanity` - Sanity.io CMS configuration and schemas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database Schema
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The application uses Supabase with the following main tables:
+- `profiles` - User profiles with Strava integration data
+- `club_members` - Club membership information
+- `activities` - Synced Strava activities
+- `sync_summaries` - Activity sync logs
+- `sync_errors` - Error logging for activity syncs
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Create a new branch for your feature
+2. Make your changes
+3. Submit a pull request
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Development Guidelines
+
+- Follow TypeScript best practices
+- Use the existing shadcn components as much as possible.
+- Write meaningful commit messages, see [Conventional Commit Messages](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13)
+- Keep the code clean and well-documented
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `/api/cron` - To test the cron job
+
+## Support
+
+For any additional help feel free to contact me at avnishjha1005@gmail.com
