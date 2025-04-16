@@ -44,7 +44,7 @@ export class StravaSyncService {
         if (activity.type !== 'Run' ) continue;
 
         const { error } = await this.supabase
-          .from('activities')
+          .from('activities2')
           .upsert({
             user_id: userId,
             activity_id: activity.id.toString(),
