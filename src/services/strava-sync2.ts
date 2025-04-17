@@ -1,7 +1,6 @@
 import { createClient } from '@/utils/supabase/client';
 import { getStravaAuth } from '@/lib/strava-auth';
 
-// SAME AS ABOVE FILE BUT TRYING TO CAPTURE DETAILS FOR ACTIVITIES ALONG WITH RUNNING TO CREATE OTHER CHALLENGES 
 export class StravaSyncService {
   private supabase;
   private stravaAuth;
@@ -41,7 +40,7 @@ export class StravaSyncService {
 
       // Process and store each activity
       for (const activity of activities) {
-        if (activity.type !== 'Run' ) continue;
+        if (activity.elapsed_time < 1800) continue;
 
         const { error } = await this.supabase
           .from('activities2')

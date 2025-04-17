@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { StravaSyncService } from '@/services/strava-sync'
+import { StravaSyncService } from '@/services/strava-sync2'
 import pLimit from 'p-limit'
 import { Resend } from 'resend'
 import RankDropEmail from '@/components/rank-drop-email'
