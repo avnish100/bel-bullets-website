@@ -164,7 +164,7 @@ export default function FullRankings() {
           </div>
           <div className="mt-4 flex justify-center">
             <Button
-              onClick={() => router.push('/leaderboard')}
+              onClick={() => router.push('/leaderboard2')}
               variant="outline"
             >
               Back to Leaderboard

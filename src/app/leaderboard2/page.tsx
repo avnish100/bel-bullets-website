@@ -57,12 +57,12 @@ const CACHE_DURATION = 5 * 60 * 1000;
 const cacheUtils = {
   get: (key: string): CachedData | null => {
     if (typeof window === 'undefined') return null;
-    const cached = localStorage.getItem(`leaderboard_${key}`);
+    const cached = localStorage.getItem(`leaderboard2_${key}`);
     if (!cached) return null;
     
     const parsedCache = JSON.parse(cached);
     if (Date.now() - parsedCache.timestamp > CACHE_DURATION) {
-      localStorage.removeItem(`leaderboard_${key}`);
+      localStorage.removeItem(`leaderboard2_${key}`);
       return null;
     }
     return parsedCache;
@@ -74,7 +74,7 @@ const cacheUtils = {
       timestamp: Date.now(),
       data: data
     };
-    localStorage.setItem(`leaderboard_${key}`, JSON.stringify(cacheData));
+    localStorage.setItem(`leaderboard2_${key}`, JSON.stringify(cacheData));
   },
 
   getCacheKey: (userId: string, type: string) => {
@@ -411,7 +411,7 @@ if (!hasStravaToken) {
                   </Table>
                   <div className="mt-4 flex justify-center">
                     <Button
-                      onClick={() => router.push('/leaderboard/full-rankings')}
+                      onClick={() => router.push('/leaderboard2/full-rankings')}
                       variant="outline"
                     >
                       View Full Rankings
