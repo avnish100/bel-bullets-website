@@ -53,7 +53,8 @@ export async function signUp(formData: FormData) {
     // 
   
     revalidatePath('/', 'layout')
-    redirect('/leaderboard')
+    // TODO : generalize this
+    redirect('/leaderboard2')
 }
 
 export async function signIn(formData: FormData) {
@@ -85,8 +86,9 @@ export async function signIn(formData: FormData) {
   console.log('✅ Session confirmed:', sessionData.session.user.id)
   
   // Revalidate paths
+  // TODO : generalize this
   revalidatePath('/', 'layout')
-  revalidatePath('/leaderboard')
+  revalidatePath('/leaderboard2')
   
   // Redirect to loading page
   redirect('/auth/loading')
