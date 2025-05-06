@@ -106,7 +106,7 @@ export function Header() {
 
   const NavLinks = ({ onClick }: { onClick?: () => void }) => (
     <>
-      <Link href="/leaderboard" className="text-white hover:text-white/80" onClick={onClick}>
+      <Link href="/leaderboard2" className="text-white hover:text-white/80" onClick={onClick}>
         Leaderboard
       </Link>
       <Link href="/about" className="text-white hover:text-white/80" onClick={onClick}>
